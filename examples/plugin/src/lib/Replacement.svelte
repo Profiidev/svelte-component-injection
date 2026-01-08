@@ -1,0 +1,1 @@
+<p>Replacement component</p>
