@@ -5,9 +5,15 @@
 	function load() {
 		loadPlugin('../examples/plugin/dist/index.js');
 	}
+
+	let counter = $state(0);
+	function increment() {
+		counter += 1;
+	}
 </script>
 
-<button on:click={load}>Load Data</button>
+<button onclick={load}>Load Data</button>
+<button onclick={increment}>Increment Counter</button>
 
-<Inject name="test-key" />
-<Inject name="test-key" default={Placeholder} />
+<Inject name="test-key" {counter} />
+<Inject name="test-key2" default={Placeholder} />
