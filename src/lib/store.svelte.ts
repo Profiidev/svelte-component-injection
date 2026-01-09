@@ -1,9 +1,8 @@
-import type { Component } from 'svelte';
-
 export type ComponentFn = (
 	target: Document | Element | ShadowRoot,
 	props?: Record<string, any>
-) => Component;
+) => () => void;
+
 export type ComponentMap = Record<string, ComponentFn>;
 
 export let components = $state<ComponentMap>({});
