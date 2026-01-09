@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
 	import Placeholder from '$lib/Placeholder.svelte';
 	import { Inject, loadPlugin } from 'svelte-component-injection';
 
 	function load() {
-		loadPlugin('../examples/plugin/dist/index.js');
+		loadPlugin(dev ? '../examples/plugin/dist/index.js' : '/plugin/index.js');
 	}
 
 	let counter = $state(0);
