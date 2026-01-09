@@ -1,3 +1,5 @@
+import { mount, unmount, type Component } from 'svelte';
+
 export type ComponentFn = (
 	target: Document | Element | ShadowRoot,
 	props?: Record<string, any>
@@ -7,7 +9,15 @@ export type ComponentMap = Record<string, ComponentFn>;
 
 export let components = $state<ComponentMap>({});
 
-export function registerComponent(type: string, component: ComponentFn) {
-	console.log('Registering component:', type, component);
-	components[type] = component;
+export function registerComponents(components: Record<string, Component<any>>) {
+	return (map: ComponentMap) => {
+		for (const key in components) {
+			map[key] = (target, props = {}) => {
+				let comp = mount(components[key], { target, props });
+				return () => {
+					unmount(comp);
+				};
+			};
+		}
+	};
 }
