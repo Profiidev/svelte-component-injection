@@ -6,6 +6,6 @@ export { Inject, type ComponentMap, components, registerComponent };
 export async function loadPlugin(path: string) {
 	const plugin = await import(/* @vite-ignore */ path);
 	if (typeof plugin.default === 'function') {
-		plugin.default();
+		plugin.default(components);
 	}
 }
