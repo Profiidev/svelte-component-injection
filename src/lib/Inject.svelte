@@ -8,7 +8,7 @@
 		default?: Component<P>;
 	}
 
-	const { name, default: Default, ...props }: Props & P = $props();
+	const { name, default: Default, ...restProps }: Props & P = $props();
 
 	let target = $state<Element | Document | ShadowRoot>();
 	let Comp = $derived<ComponentFn | undefined>(components[name]);
@@ -19,7 +19,7 @@
 			if (mountedComp) {
 				mountedComp();
 			}
-			mountedComp = Comp(target, props);
+			mountedComp = Comp(target, restProps);
 		}
 	});
 
@@ -35,5 +35,5 @@
 {#if Comp}
 	<div bind:this={target}></div>
 {:else if Default}
-	<Default {...props} />
+	<Default {...restProps as unknown as P} />
 {/if}
